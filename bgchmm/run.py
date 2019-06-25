@@ -2,7 +2,7 @@
 import subprocess
 import os, sys
 from bgchmm.train.hmm_train import hmm_multinomial_train
-#from bgchmm.train.log_ratio import logratio 
+from bgchmm.train.log_ratio import logratio 
 from bgchmm.find.hmm_find import hmm_multinomial_predict
 
 class Run:
@@ -15,17 +15,15 @@ class Run:
         cutoff=self.args.cutoff
         output=sel.args.output
         dirdata=self.dirdata
-
         hmm_multinomial_predict(pfam_seqs, output, bgctype, cutoff, dirdata)
 
     def train(self):
         infile=self.args.infile
         output=self.args.output
-        log=self.args.logratio
+        perc=self.args.perc_cutoff
         dirdata=self.dirdata
-        logratio(infile,output,dirdata)
+        logratio(infile,output,dirdata,perc)
         hmm_multinomial_train(infile,output,dirdata)
-
 
     def main(self):
         if self.args.subparser_name=="find":
